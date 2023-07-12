@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 // instancia express
 const app = express();
-const port = 443;
+const port = 80;
 
 
 app.use(cors());
