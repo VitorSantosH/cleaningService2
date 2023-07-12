@@ -1,11 +1,11 @@
 {
-  "main.css": "/static/css/main.8ab304ab.chunk.css",
-  "main.js": "/static/js/main.b2ca5fcd.chunk.js",
-  "main.js.map": "/static/js/main.b2ca5fcd.chunk.js.map",
+  "main.css": "/static/css/main.98f5d325.chunk.css",
+  "main.js": "/static/js/main.9806a749.chunk.js",
+  "main.js.map": "/static/js/main.9806a749.chunk.js.map",
   "static/js/1.ac5b1bae.chunk.js": "/static/js/1.ac5b1bae.chunk.js",
   "static/js/1.ac5b1bae.chunk.js.map": "/static/js/1.ac5b1bae.chunk.js.map",
-  "static/js/2.a8a49a3c.chunk.js": "/static/js/2.a8a49a3c.chunk.js",
-  "static/js/2.a8a49a3c.chunk.js.map": "/static/js/2.a8a49a3c.chunk.js.map",
+  "static/js/2.b6cfeb37.chunk.js": "/static/js/2.b6cfeb37.chunk.js",
+  "static/js/2.b6cfeb37.chunk.js.map": "/static/js/2.b6cfeb37.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.8e3a2bdf.js",
   "runtime~main.js.map": "/static/js/runtime~main.8e3a2bdf.js.map",
   "static/media/índice13.jpg": "/static/media/índice13.f7eaa686.jpg",
@@ -32,8 +32,8 @@
   "static/media/kitchen-cleaning.jpg": "/static/media/kitchen-cleaning.7cf3a627.jpg",
   "static/media/toilet-cleaning.jpg": "/static/media/toilet-cleaning.47da52ba.jpg",
   "static/media/about-img.png": "/static/media/about-img.33757e8d.png",
-  "static/css/main.8ab304ab.chunk.css.map": "/static/css/main.8ab304ab.chunk.css.map",
+  "static/css/main.98f5d325.chunk.css.map": "/static/css/main.98f5d325.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.4ba3acfcdd9faed2667a861aebc287c8.js": "/precache-manifest.4ba3acfcdd9faed2667a861aebc287c8.js",
+  "precache-manifest.6f92bca5472a39f914e8a2dba6687607.js": "/precache-manifest.6f92bca5472a39f914e8a2dba6687607.js",
   "service-worker.js": "/service-worker.js"
 }
