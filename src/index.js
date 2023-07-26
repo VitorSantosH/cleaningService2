@@ -30,22 +30,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 //app.use('/', express.static("build"));
-app.use('/', (req, res, next) => {
-    console.log(req.protocol)
-    if (req.headers.host.includes('vitorwebdev.com.br') && req.protocol != 'https') {
-      const redirectTo = 'https://' +  req.headers.host + ':8443' + req.url;
-      console.log(redirectTo)
-      console.log('Middleware de redirecionamento acionado.');
-      return res.redirect(301, redirectTo);
-    }
-    next();
-});
 app.use("/", (req, res, next) => {
     console.log(req.headers.host)
     if (req.headers.host.includes('cleaningservicesperfect.com')) {
         // Servir o primeiro site a partir da pasta 'build'
         express.static('build')(req, res, next);
-
 
     } else if (req.headers.host.includes('vitorwebdev.com.br')) {
         // Servir o segundo site a partir da pasta 'dist'
@@ -95,4 +84,17 @@ httpsServer2.listen(8443, function () {
                                   }
                     ]
 };
+
+app.use('/', (req, res, next) => {
+    console.log(req.protocol)
+    if (req.headers.host.includes('vitorwebdev.com.br') && req.protocol != 'https') {
+      const redirectTo = 'https://' +  req.headers.host + ':8443' + req.url;
+      console.log(redirectTo)
+      console.log('Middleware de redirecionamento acionado.');
+      return res.redirect(301, redirectTo);
+    }
+    next();
+});
+
+
  */
