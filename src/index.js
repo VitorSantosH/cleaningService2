@@ -32,14 +32,14 @@ app.use(morgan('combined'));
 //app.use('/', express.static("build"));
 app.use("/", (req, res, next) => {
     console.log(req.headers.host)
-    if (req.headers.host === 'cleaningservicesperfect.com') {
+    if (req.headers.host.includes('cleaningservicesperfect.com')) {
       // Servir o primeiro site a partir da pasta 'build'
       express.static('build')(req, res, next);
 
 
-    } else if (req.headers.host === 'vitorwebdev.com.br') {
+    } else if (req.headers.host.includes('vitorwebdev.com.br')) {
       // Servir o segundo site a partir da pasta 'dist'
-      express.static('dist')(req, res, next);
+      express.static('dist')(req, res,);
     } else {
       // Se o host não for correspondente a nenhum dos sites, retorne um erro ou redirecione conforme necessário.
       res.status(404).send('Site não encontrado');
