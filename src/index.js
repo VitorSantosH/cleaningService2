@@ -15,7 +15,7 @@ const credentials = {
 const certif2 = {
     key: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/privkey.pem", 'utf8'),
     cert: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/fullchain.pem", 'utf8')
-  };
+};
 //var credentials = { key: privateKey, cert: certificate };
 
 
@@ -33,23 +33,28 @@ app.use(morgan('combined'));
 app.use("/", (req, res, next) => {
     console.log(req.headers.host)
     if (req.headers.host.includes('cleaningservicesperfect.com')) {
-      // Servir o primeiro site a partir da pasta 'build'
-      express.static('build')(req, res, next);
+        // Servir o primeiro site a partir da pasta 'build'
+        express.static('build')(req, res, next);
 
 
     } else if (req.headers.host.includes('vitorwebdev.com.br')) {
-      // Servir o segundo site a partir da pasta 'dist'
-      express.static('dist')(req, res,);
+        // Servir o segundo site a partir da pasta 'dist'
+        if (!req.secure) {
+            const redirectTo = 'https://' + req.headers.host.replace(/:\d+$/, ':8443') + req.url;
+            return res.redirect(redirectTo);
+        }
+        express.static('dist')(req, res,);
     } else {
-      // Se o host não for correspondente a nenhum dos sites, retorne um erro ou redirecione conforme necessário.
-      res.status(404).send('Site não encontrado');
+        // Se o host não for correspondente a nenhum dos sites, retorne um erro ou redirecione conforme necessário.
+        res.status(404).send('Site não encontrado');
     }
 });
 
 
 const httpServer = http.createServer(app);
-const httpsServer1 = https.createServer(credentials, app);
 const httpsServer2 = https.createServer(certif2, app);
+const httpsServer1 = https.createServer(credentials, app);
+
 
 httpServer.listen(portHttp, function () {
     console.log("JSON Server is running on " + portHttp);
