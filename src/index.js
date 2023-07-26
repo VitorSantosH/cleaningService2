@@ -4,9 +4,19 @@ const morgan = require('morgan');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem', 'utf8');
-const certificate = fs.readFileSync("/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem", 'utf8');
-var credentials = { key: privateKey, cert: certificate };
+//const privateKey = fs.readFileSync('/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem', 'utf8');
+//const certificate = fs.readFileSync("/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem", 'utf8');
+
+const credentials = {
+    key: fs.readFileSync('/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem', 'utf8'),
+    cert: fs.readFileSync("/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem", 'utf8')
+}
+
+const credentials2 = {
+    key: fs.readFileSync('/etc/letsencrypt/live/vitorwebdev.com.br/privkey.pem', 'utf8'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/vitorwebdev.com.br/fullchain.pem', 'utf8')
+  };
+//var credentials = { key: privateKey, cert: certificate };
 
 
 // instancia express
@@ -19,17 +29,37 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('combined'));
-app.use('/', express.static("build"));
+//app.use('/', express.static("build"));
+app.use("/", (req, res, next) => {
+    console.log(req.headers.host)
+    if (req.headers.host === 'cleaningservicesperfect.com') {
+      // Servir o primeiro site a partir da pasta 'build'
+      express.static('build')(req, res, next);
+
+
+    } else if (req.headers.host === 'vitorwebdev.com.br') {
+      // Servir o segundo site a partir da pasta 'dist'
+      express.static('dist')(req, res, next);
+    } else {
+      // Se o host não for correspondente a nenhum dos sites, retorne um erro ou redirecione conforme necessário.
+      res.status(404).send('Site não encontrado');
+    }
+});
+
 
 const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app);
+const httpsServer1 = https.createServer(credentials, app);
+const httpsServer2 = https.createServer(credentials2, app);
 
 httpServer.listen(portHttp, function () {
     console.log("JSON Server is running on " + portHttp);
 });
-httpsServer.listen(portHttpS, function () {
+httpsServer1.listen(portHttpS, function () {
     console.log("JSON Server is running on :" + portHttpS);
 })
+httpsServer2.listen(8443, function () {
+    console.log('Second site is running on port 8443');
+});
 
 
 
