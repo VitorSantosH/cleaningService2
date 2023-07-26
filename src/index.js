@@ -12,9 +12,9 @@ const credentials = {
     cert: fs.readFileSync("/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem", 'utf8')
 }
 
-const credentials2 = {
-    key: fs.readFileSync('/etc/letsencrypt/live/vitorwebdev.com.br/privkey.pem', 'utf8'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/vitorwebdev.com.br/fullchain.pem', 'utf8')
+const certif2 = {
+    key: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/privkey.pem", 'utf8'),
+    cert: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/fullchain.pem", 'utf8')
   };
 //var credentials = { key: privateKey, cert: certificate };
 
@@ -49,7 +49,7 @@ app.use("/", (req, res, next) => {
 
 const httpServer = http.createServer(app);
 const httpsServer1 = https.createServer(credentials, app);
-const httpsServer2 = https.createServer(credentials2, app);
+const httpsServer2 = https.createServer(certif2, app);
 
 httpServer.listen(portHttp, function () {
     console.log("JSON Server is running on " + portHttp);
@@ -67,3 +67,21 @@ httpsServer2.listen(8443, function () {
     console.log("servidor funcionando na porta: " + port)
 })
 */
+
+
+/** ecosystem.config.js
+ * module.exports = {
+          apps: [
+                      {
+                              name: 'cleaningService2',
+                                    script: 'src/index.js',
+                                    env: {
+                                                    NODE_ENV: 'production',
+                                                    HTTPS: true,
+                                                    SSL_KEY: '/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem',
+                                                    SSL_CERT: '/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem'
+                                                  }
+                                  }
+                    ]
+};
+ */
