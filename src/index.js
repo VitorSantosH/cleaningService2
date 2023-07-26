@@ -28,12 +28,13 @@ const portHttpS = 443
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 //app.use('/', express.static("build"));
-app.use((req, res, next) => {
+app.use('/', (req, res, next) => {
+    console.log('Middleware de redirecionamento acionado.');
     if (req.headers.host.includes('vitorwebdev.com.br') && req.protocol !== 'https') {
-        const redirectTo = 'https://' + req.headers.host + req.url;
-        return res.redirect(301, redirectTo);
+      const redirectTo = 'https://' + req.headers.host + req.url;
+      return res.redirect(301, redirectTo);
     }
     next();
 });
