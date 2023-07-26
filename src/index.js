@@ -4,9 +4,6 @@ const morgan = require('morgan');
 const fs = require('fs');
 const http = require('http');
 const https = require('https');
-const { createProxyMiddleware } = require('http-proxy-middleware');
-//const privateKey = fs.readFileSync('/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem', 'utf8');
-//const certificate = fs.readFileSync("/etc/letsencrypt/live/cleaningservicesperfect.com/fullchain.pem", 'utf8');
 
 const credentials = {
     key: fs.readFileSync('/etc/letsencrypt/live/cleaningservicesperfect.com/privkey.pem', 'utf8'),
@@ -17,7 +14,7 @@ const certif2 = {
     key: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/privkey.pem", 'utf8'),
     cert: fs.readFileSync("/etc/letsencrypt/live/vitorwebdev.com.br/fullchain.pem", 'utf8')
 };
-//var credentials = { key: privateKey, cert: certificate };
+;
 
 
 // instancia express
@@ -25,38 +22,10 @@ const app = express();
 const portHttp = 80;
 const portHttpS = 443
 
-//
-const proxyOptions1 = {
-    target: 'https://localhost:443', // Substitua pelo endereço do primeiro servidor HTTPS
-    changeOrigin: true,
-};
-const proxyOptions2 = {
-    target: 'https://localhost:8443', // Substitua pelo endereço do segundo servidor HTTPS
-    changeOrigin: true,
-};
-
-const proxy1 = createProxyMiddleware(proxyOptions1);
-const proxy2 = createProxyMiddleware(proxyOptions2);
-
-//
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-//
-app.use((req, res, next) => {
-    console.log(req.headers.host);
-    if (req.headers.host.includes('cleaningservicesperfect.com')) {
-      proxy1(req, res, next);
-    } else if (req.headers.host.includes('vitorwebdev.com.br')) {
-      proxy2(req, res, next);
-    } else {
-      // Se o host não for correspondente a nenhum dos sites, retorne um erro ou redirecione conforme necessário.
-      res.status(404).send('Site não encontrado');
-    }
-  });
-//
 app.use("/", (req, res, next) => {
     console.log(req.headers.host)
     if (req.headers.host.includes('cleaningservicesperfect.com')) {
