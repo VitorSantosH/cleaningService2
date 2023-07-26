@@ -32,7 +32,7 @@ app.use(morgan('dev'));
 //app.use('/', express.static("build"));
 app.use('/', (req, res, next) => {
     if (req.headers.host.includes('vitorwebdev.com.br') && req.protocol !== 'https') {
-      const redirectTo = 'https://' +  req.headers.host.replace(/:\d+$/, ':8443') + req.url;
+      const redirectTo = 'https://' +  req.headers.host + ':8443' + req.url;
       console.log('Middleware de redirecionamento acionado.');
       return res.redirect(301, redirectTo);
     }
